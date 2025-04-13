@@ -72,7 +72,7 @@ export function SetupInstructionsModal({ isOpen, onOpenChange, template }: Setup
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[600px]">
+      <DialogContent className="w-full max-w-[600px] p-6">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold">Completing Your Report Setup</DialogTitle>
         </DialogHeader>

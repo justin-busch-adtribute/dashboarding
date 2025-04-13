@@ -24,7 +24,7 @@ export function FilterDropdown({ label, icon, options, selectedValues, onToggle 
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger>
         <Button variant="outline" size="sm" className="flex items-center">
           {icon}
           {label}

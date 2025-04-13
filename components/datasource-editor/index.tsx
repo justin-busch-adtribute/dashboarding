@@ -129,7 +129,7 @@ export function DatasourceEditor({ isOpen, onOpenChange, reportId }: DatasourceE
 
   return (
     <Dialog open={isOpen} onOpenChange={handleCancelChanges}>
-      <DialogContent className="max-w-[1200px] w-[95vw] max-h-[85vh] overflow-hidden flex flex-col">
+      <DialogContent className="w-[95vw] max-w-[1200px] max-h-[85vh] p-6 overflow-hidden flex flex-col">
         {!selectedField && !isAddingField && (
           <>
             <DialogHeader className="mb-4">

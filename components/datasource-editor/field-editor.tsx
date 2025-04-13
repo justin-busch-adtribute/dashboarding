@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { Calculator, ChevronDown, Search, Trash2 } from "lucide-react"
 import type { DatasourceField, DataType, FunctionSuggestion } from "@/types"
 import { functionSuggestions } from "@/data"
@@ -194,99 +195,103 @@ export function FieldEditor({ field, allFields, onCancel, onSave, onDelete, getD
           <div className="flex items-center gap-2">
             {/* Fields dropdown */}
             <Popover>
-              <PopoverTrigger asChild>
+              <PopoverTrigger>
                 <Button variant="outline" size="sm" className="flex items-center gap-1">
                   Fields
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent
-                className="w-[350px] p-0 max-h-[400px] overflow-hidden flex flex-col"
+                className="w-[350px] p-0"
                 align="end"
                 sideOffset={5}
               >
-                <div className="p-2 border-b flex-shrink-0">
-                  <div className="flex items-center gap-2 px-2 py-1 rounded-md border">
-                    <Search className="h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Search fields"
-                      className="border-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
+                <div className="flex flex-col h-[400px]">
+                  <div className="border-b bg-white p-2">
+                    <div className="flex items-center gap-2 px-2 py-1 rounded-md border">
+                      <Search className="h-4 w-4 text-muted-foreground" />
+                      <Input
+                        placeholder="Search fields"
+                        className="border-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="overflow-y-auto">
-                  {filteredFields.length === 0 ? (
-                    <div className="p-3 text-center text-muted-foreground">No fields found</div>
-                  ) : (
-                    filteredFields.map((field) => (
-                      <div
-                        key={field.id}
-                        className="flex items-start gap-3 p-3 hover:bg-muted cursor-pointer border-b last:border-0"
-                        onClick={() => handleInsertField(field)}
-                      >
-                        <div className="flex-shrink-0 mt-1">{getDataTypeIcon(field.dataType)}</div>
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between">
-                            <div className="font-medium">{field.name}</div>
+                  <ScrollArea className="flex-1">
+                    {filteredFields.length === 0 ? (
+                      <div className="p-3 text-center text-muted-foreground">No fields found</div>
+                    ) : (
+                      filteredFields.map((field) => (
+                        <div
+                          key={field.id}
+                          className="flex items-start gap-3 p-3 hover:bg-muted cursor-pointer border-b last:border-0"
+                          onClick={() => handleInsertField(field)}
+                        >
+                          <div className="flex-shrink-0 mt-1">{getDataTypeIcon(field.dataType)}</div>
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between">
+                              <div className="font-medium">{field.name}</div>
+                            </div>
+                            <div className="text-xs text-muted-foreground font-mono mt-1">{field.key}</div>
                           </div>
-                          <div className="text-xs text-muted-foreground font-mono mt-1">{field.key}</div>
                         </div>
-                      </div>
-                    ))
-                  )}
+                      ))
+                    )}
+                  </ScrollArea>
                 </div>
               </PopoverContent>
             </Popover>
 
             {/* Functions dropdown */}
             <Popover>
-              <PopoverTrigger asChild>
+              <PopoverTrigger>
                 <Button variant="outline" size="sm" className="flex items-center gap-1">
                   Functions
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </PopoverTrigger>
               <PopoverContent
-                className="w-[350px] p-0 max-h-[400px] overflow-hidden flex flex-col"
+                className="w-[350px] p-0"
                 align="end"
                 sideOffset={5}
               >
-                <div className="p-2 border-b flex-shrink-0">
-                  <div className="flex items-center gap-2 px-2 py-1 rounded-md border">
-                    <Search className="h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Search functions"
-                      className="border-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
+                <div className="flex flex-col h-[400px]">
+                  <div className="border-b bg-white p-2">
+                    <div className="flex items-center gap-2 px-2 py-1 rounded-md border">
+                      <Search className="h-4 w-4 text-muted-foreground" />
+                      <Input
+                        placeholder="Search functions"
+                        className="border-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="overflow-y-auto">
-                  {Object.entries(groupedFunctions).length === 0 ? (
-                    <div className="p-3 text-center text-muted-foreground">No functions found</div>
-                  ) : (
-                    Object.entries(groupedFunctions).map(([category, functions]) => (
-                      <div key={category} className="mb-2">
-                        <div className="text-xs font-medium text-muted-foreground px-3 py-1 bg-muted/50">
-                          {category}
-                        </div>
-                        {functions.map((func) => (
-                          <div
-                            key={func.name}
-                            className="flex flex-col p-3 hover:bg-muted cursor-pointer border-b last:border-0"
-                            onClick={() => handleInsertFunction(func)}
-                          >
-                            <div className="font-medium">{func.name}</div>
-                            <div className="text-xs text-muted-foreground mt-1">{func.description}</div>
-                            <div className="text-xs font-mono mt-1 text-muted-foreground">{func.syntax}</div>
+                  <ScrollArea className="flex-1">
+                    {Object.entries(groupedFunctions).length === 0 ? (
+                      <div className="p-3 text-center text-muted-foreground">No functions found</div>
+                    ) : (
+                      Object.entries(groupedFunctions).map(([category, functions]) => (
+                        <div key={category}>
+                          <div className="text-xs font-medium text-muted-foreground px-3 py-1 bg-muted/50 sticky top-0 z-10">
+                            {category}
                           </div>
-                        ))}
-                      </div>
-                    ))
-                  )}
+                          {functions.map((func) => (
+                            <div
+                              key={func.name}
+                              className="flex flex-col p-3 hover:bg-muted cursor-pointer border-b last:border-0"
+                              onClick={() => handleInsertFunction(func)}
+                            >
+                              <div className="font-medium">{func.name}</div>
+                              <div className="text-xs text-muted-foreground mt-1">{func.description}</div>
+                              <div className="text-xs font-mono mt-1 text-muted-foreground">{func.syntax}</div>
+                            </div>
+                          ))}
+                        </div>
+                      ))
+                    )}
+                  </ScrollArea>
                 </div>
               </PopoverContent>
             </Popover>
