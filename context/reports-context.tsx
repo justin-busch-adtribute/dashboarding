@@ -4,6 +4,8 @@ import { createContext, useContext, useState, useEffect, type ReactNode } from "
 import type { Report, ReportsContextType } from "@/types/reports"
 import { REPORTS_STORAGE_KEY } from "@/data/constants"
 
+export type { Report }
+
 // Create context with default values
 const ReportsContext = createContext<ReportsContextType>({
   addedReports: [],

@@ -3,12 +3,22 @@ import type { Template } from "@/types/templates"
 
 // Function to get business type icon
 export const getBusinessTypeIcon = (type: string) => {
-  return type === "Leadgen" ? <Users className="h-3 w-3" /> : <Briefcase className="h-3 w-3" />
+  return type === "Leadgen" ? "Users" : "Briefcase"
 }
 
 // Function to get report type icon
 export const getReportTypeIcon = (type: string) => {
-  return type === "Ready-Made" ? <Sparkles className="h-3 w-3" /> : <Wrench className="h-3 w-3" />
+  return type === "Dashboard" ? "LayoutDashboard" : "FileText"
+}
+
+// Function to get industry icon
+export const getIndustryIcon = (industry: string) => {
+  return industry === "E-commerce" ? "ShoppingCart" : "Store"
+}
+
+// Function to get platform icon
+export const getPlatformIcon = (platform: string) => {
+  return platform === "Google Analytics" ? "LineChart" : "BarChart"
 }
 
 // Function to filter templates based on selected filters

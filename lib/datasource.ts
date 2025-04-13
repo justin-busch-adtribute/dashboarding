@@ -4,26 +4,42 @@ import type React from "react"
 import { DATASOURCE_STORAGE_KEY_PREFIX } from "@/data/constants"
 
 // Get icon for data type
-export const getDataTypeIcon = (dataType: DataType): React.ReactNode => {
+export const getDataTypeIcon = (dataType: string) => {
   switch (dataType) {
     case "text":
-      return <Type className="h-4 w-4" />
+      return "Type"
     case "number":
-      return <Hash className="h-4 w-4" />
+      return "Hash"
     case "date":
-      return <Calendar className="h-4 w-4" />
+      return "Calendar"
     case "boolean":
-      return <ToggleLeft className="h-4 w-4" />
-    case "currency":
-      return <DollarSign className="h-4 w-4" />
-    case "url":
-      return <Link className="h-4 w-4" />
+      return "CheckSquare"
+    case "formula":
+      return "Function"
     default:
-      return <Type className="h-4 w-4" />
+      return "Type"
   }
 }
 
 // Helper to generate a storage key for a specific report
 export const getDatasourceStorageKey = (reportId: string): string => {
   return `${DATASOURCE_STORAGE_KEY_PREFIX}${reportId}`
+}
+
+// Function to get aggregation icon
+export const getAggregationIcon = (aggregation: string) => {
+  switch (aggregation) {
+    case "sum":
+      return "Plus"
+    case "average":
+      return "Divide"
+    case "count":
+      return "Hash"
+    case "min":
+      return "Minus"
+    case "max":
+      return "Plus"
+    default:
+      return "Type"
+  }
 }

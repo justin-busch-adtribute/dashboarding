@@ -1,12 +1,11 @@
 import type React from "react"
 import "@/app/globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { ReportsProvider } from "@/context/reports-context"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Looker Studio Report Library",
-  description: "Browse and use Looker Studio report templates",
+  title: "Dashboarding",
+  description: "Dashboarding application",
 }
 
 export default function RootLayout({
@@ -15,11 +14,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <ReportsProvider>{children}</ReportsProvider>
-        </ThemeProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen bg-background font-sans antialiased">
+        <ReportsProvider>
+          {children}
+        </ReportsProvider>
       </body>
     </html>
   )
