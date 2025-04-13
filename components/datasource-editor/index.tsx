@@ -10,6 +10,7 @@ import type { DatasourceField } from "@/types"
 import { FieldList } from "./field-list"
 import { FieldEditor } from "./field-editor"
 import { FormulaEditor } from "./formula-editor"
+import { DatasourceRefreshInstructionsModal } from "./datasource-refresh-instructions-modal"
 import { getDataTypeIcon, getDatasourceStorageKey } from "@/lib/datasource"
 
 interface DatasourceEditorProps {
@@ -24,6 +25,7 @@ export function DatasourceEditor({ isOpen, onOpenChange, reportId }: DatasourceE
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedField, setSelectedField] = useState<DatasourceField | null>(null)
   const [isAddingField, setIsAddingField] = useState(false)
+  const [showRefreshInstructions, setShowRefreshInstructions] = useState(false)
   const searchInputRef = useRef<HTMLInputElement>(null)
   const [initialized, setInitialized] = useState(false)
 
@@ -118,7 +120,10 @@ export function DatasourceEditor({ isOpen, onOpenChange, reportId }: DatasourceE
     } catch (error) {
       console.error("Failed to save fields to localStorage:", error)
     }
+    // Close the editor modal
     onOpenChange(false)
+    // Show the refresh instructions modal
+    setShowRefreshInstructions(true)
   }
 
   // Handle canceling changes
@@ -128,83 +133,90 @@ export function DatasourceEditor({ isOpen, onOpenChange, reportId }: DatasourceE
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleCancelChanges}>
-      <DialogContent className="w-[95vw] max-w-[1200px] max-h-[85vh] p-6 overflow-hidden flex flex-col">
-        {!selectedField && !isAddingField && (
-          <>
-            <DialogHeader className="mb-4">
-              <div className="flex items-center justify-between">
-                <DialogTitle className="text-xl">Configure Datasource</DialogTitle>
-                <div className="flex items-center gap-3 mr-8">
-                  <div className="relative">
-                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      ref={searchInputRef}
-                      placeholder="Search fields..."
-                      className="pl-8 w-[250px]"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      autoFocus={false}
-                    />
+    <>
+      <Dialog open={isOpen} onOpenChange={handleCancelChanges}>
+        <DialogContent className="w-[95vw] max-w-[1200px] max-h-[85vh] p-6 overflow-hidden flex flex-col">
+          {!selectedField && !isAddingField && (
+            <>
+              <DialogHeader className="mb-4">
+                <div className="flex items-center justify-between">
+                  <DialogTitle className="text-xl">Configure Datasource</DialogTitle>
+                  <div className="flex items-center gap-3 mr-8">
+                    <div className="relative">
+                      <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        ref={searchInputRef}
+                        placeholder="Search fields..."
+                        className="pl-8 w-[250px]"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        autoFocus={false}
+                      />
+                    </div>
+                    <Button onClick={handleAddField} className="flex items-center gap-1">
+                      <Plus className="h-4 w-4" />
+                      Add Field
+                    </Button>
                   </div>
-                  <Button onClick={handleAddField} className="flex items-center gap-1">
-                    <Plus className="h-4 w-4" />
-                    Add Field
-                  </Button>
                 </div>
-              </div>
-            </DialogHeader>
+              </DialogHeader>
 
-            <div className="flex-1 overflow-auto">
-              <FieldList
-                fields={filteredFields}
-                onFieldSelect={handleFieldSelect}
-                onFieldUpdate={handleFieldUpdate}
-                getDataTypeIcon={getDataTypeIcon}
-              />
+              <div className="flex-1 overflow-auto">
+                <FieldList
+                  fields={filteredFields}
+                  onFieldSelect={handleFieldSelect}
+                  onFieldUpdate={handleFieldUpdate}
+                  getDataTypeIcon={getDataTypeIcon}
+                />
+              </div>
+
+              <DialogFooter className="flex justify-end items-center mt-4">
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={handleCancelChanges}>
+                    Cancel
+                  </Button>
+                  <Button onClick={handleSaveDatasource}>Save Datasource</Button>
+                </div>
+              </DialogFooter>
+            </>
+          )}
+
+          {(selectedField || isAddingField) && (
+            <div className="flex-1 overflow-auto p-6">
+              {isAddingField ? (
+                <FormulaEditor
+                  fields={draftFields}
+                  functionSuggestions={functionSuggestions}
+                  onCancel={() => {
+                    setIsAddingField(false)
+                  }}
+                  onSave={handleCreateField}
+                  getDataTypeIcon={getDataTypeIcon}
+                />
+              ) : selectedField ? (
+                <FieldEditor
+                  field={selectedField}
+                  allFields={draftFields}
+                  onCancel={() => {
+                    setSelectedField(null)
+                  }}
+                  onSave={(updatedField) => {
+                    handleFieldUpdate(updatedField)
+                    setSelectedField(null)
+                  }}
+                  onDelete={handleDeleteField}
+                  getDataTypeIcon={getDataTypeIcon}
+                />
+              ) : null}
             </div>
+          )}
+        </DialogContent>
+      </Dialog>
 
-            <DialogFooter className="flex justify-end items-center mt-4">
-              <div className="flex gap-2">
-                <Button variant="outline" onClick={handleCancelChanges}>
-                  Cancel
-                </Button>
-                <Button onClick={handleSaveDatasource}>Save Datasource</Button>
-              </div>
-            </DialogFooter>
-          </>
-        )}
-
-        {(selectedField || isAddingField) && (
-          <div className="flex-1 overflow-auto p-6">
-            {isAddingField ? (
-              <FormulaEditor
-                fields={draftFields}
-                functionSuggestions={functionSuggestions}
-                onCancel={() => {
-                  setIsAddingField(false)
-                }}
-                onSave={handleCreateField}
-                getDataTypeIcon={getDataTypeIcon}
-              />
-            ) : selectedField ? (
-              <FieldEditor
-                field={selectedField}
-                allFields={draftFields}
-                onCancel={() => {
-                  setSelectedField(null)
-                }}
-                onSave={(updatedField) => {
-                  handleFieldUpdate(updatedField)
-                  setSelectedField(null)
-                }}
-                onDelete={handleDeleteField}
-                getDataTypeIcon={getDataTypeIcon}
-              />
-            ) : null}
-          </div>
-        )}
-      </DialogContent>
-    </Dialog>
+      <DatasourceRefreshInstructionsModal
+        isOpen={showRefreshInstructions}
+        onOpenChange={setShowRefreshInstructions}
+      />
+    </>
   )
 }
