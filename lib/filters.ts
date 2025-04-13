@@ -1,5 +1,5 @@
 import { Briefcase, Sparkles, Users, Wrench } from "lucide-react"
-import type { Template } from "@/types/templates"
+import type { Template } from "@/types"
 
 // Function to get business type icon
 export const getBusinessTypeIcon = (type: string) => {

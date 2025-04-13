@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Card } from "@/components/ui/card"
 import { ExternalLink } from "lucide-react"
-import type { Template } from "@/types/templates"
+import type { Template } from "@/types"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { useReports } from "@/context/reports-context"
-import { templateToReportIdMap } from "@/data/mock/templates"
+import { templateToReportIdMap } from "@/data"
 
 interface SetupInstructionsModalProps {
   isOpen: boolean

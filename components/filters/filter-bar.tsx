@@ -3,7 +3,7 @@
 import { Briefcase, FileText, BarChart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { FilterDropdown } from "./filter-dropdown"
-import { businessTypeOptions, reportTypeOptions, useCaseOptions } from "@/data/mock/filter-options"
+import { businessTypeOptions, reportTypeOptions, useCaseOptions } from "@/data"
 
 interface FilterBarProps {
   selectedBusinessTypes: string[]

@@ -1,4 +1,4 @@
-import type { DatasourceField, FunctionSuggestion } from "@/types/datasource"
+import type { DatasourceField, FunctionSuggestion } from "@/types"
 
 // Dummy data for datasource fields
 export const datasourceFields: DatasourceField[] = [

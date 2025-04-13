@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import type { DatasourceField, DataType } from "@/types/datasource"
+import type { DatasourceField, DataType } from "@/types"
 import { Calculator } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 

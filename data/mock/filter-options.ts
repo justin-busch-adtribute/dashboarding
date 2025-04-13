@@ -1,4 +1,4 @@
-import type { BusinessTypeOption, ReportTypeOption, UseCaseOption } from "@/types/templates"
+import type { BusinessTypeOption, ReportTypeOption, UseCaseOption } from "@/types"
 
 // Use Case options
 export const useCaseOptions: UseCaseOption[] = [

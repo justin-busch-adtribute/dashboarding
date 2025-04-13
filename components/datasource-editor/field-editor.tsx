@@ -8,8 +8,8 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Calculator, ChevronDown, Search, Trash2 } from "lucide-react"
-import type { DatasourceField, DataType, FunctionSuggestion } from "@/types/datasource"
-import { functionSuggestions } from "@/data/mock/datasource-fields"
+import type { DatasourceField, DataType, FunctionSuggestion } from "@/types"
+import { functionSuggestions } from "@/data"
 import { Badge } from "@/components/ui/badge"
 
 interface FieldEditorProps {

@@ -31,6 +31,7 @@ export default function ReportViewer() {
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const { addedReports, hasReports } = useReports()
   const [isDatasourceEditorOpen, setIsDatasourceEditorOpen] = useState(false)
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
 
   // Group reports by use case
   const useCases = groupReportsByUseCase(addedReports)
@@ -194,24 +195,24 @@ export default function ReportViewer() {
         {/* Right: Report Settings Dropdown */}
         <div>
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger>
               <Button variant="outline" size="sm" className="flex items-center gap-1">
                 <Settings className="h-4 w-4" />
                 Report Settings
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuItem className="cursor-pointer" onClick={handleConfigureDatasource}>
-                <Database className="h-4 w-4 mr-2" />
+              <DropdownMenuItem onClick={handleConfigureDatasource} className="flex items-center gap-2">
+                <Database className="h-4 w-4" />
                 Configure Datasource
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer" onClick={handleViewDocumentation}>
-                <ExternalLink className="h-4 w-4 mr-2" />
+              <DropdownMenuItem onClick={handleViewDocumentation} className="flex items-center gap-2">
+                <ExternalLink className="h-4 w-4" />
                 View Documentation
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer" onClick={handleOpenInLookerStudio}>
-                <ExternalLink className="h-4 w-4 mr-2" />
-                Open in Lookerstudio
+              <DropdownMenuItem onClick={handleOpenInLookerStudio} className="flex items-center gap-2">
+                <ExternalLink className="h-4 w-4" />
+                Open in Looker Studio
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

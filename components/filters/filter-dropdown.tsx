@@ -6,7 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { ChevronDown, Search } from "lucide-react"
 import { type ReactNode, useState } from "react"
 import { FilterOption } from "./filter-option"
-import type { FilterOption as FilterOptionType } from "@/types/templates"
+import type { FilterOption as FilterOptionType } from "@/types"
 
 interface FilterDropdownProps {
   label: string

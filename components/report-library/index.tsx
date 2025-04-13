@@ -5,8 +5,8 @@ import { Header } from "@/components/report-library/header"
 import { MainContent } from "@/components/report-library/main-content"
 import { TemplateModal } from "@/components/report-library/template-modal"
 import { filterTemplates } from "@/lib/filters"
-import { templates } from "@/data/mock/templates"
-import type { Template } from "@/types/templates"
+import type { Template } from "@/types"
+import { templates } from "@/data"
 
 export function ReportLibrary() {
   const [selectedBusinessTypes, setSelectedBusinessTypes] = useState<string[]>([])

@@ -1,8 +1,8 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
-import type { Report, ReportsContextType } from "@/types/reports"
-import { REPORTS_STORAGE_KEY } from "@/data/constants"
+import type { Report, ReportsContextType } from "@/types"
+import { REPORTS_STORAGE_KEY } from "@/data"
 
 export type { Report }
 

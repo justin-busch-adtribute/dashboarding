@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Calculator, ChevronDown, Search } from "lucide-react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import type { DatasourceField, DataType, FunctionSuggestion } from "@/types/datasource"
+import type { DatasourceField, DataType, FunctionSuggestion } from "@/types"
 import { Badge } from "@/components/ui/badge"
 
 interface FormulaEditorProps {

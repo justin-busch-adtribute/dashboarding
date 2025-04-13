@@ -1,4 +1,4 @@
-import type { Template } from "@/types/templates"
+import type { Template } from "@/types"
 
 // Template data
 export const templates: Template[] = [
